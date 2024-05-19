@@ -14,6 +14,25 @@ The primary goals of PyRaft include:
 - Implementing an Event-Driven Architecture.
 - Studying and replicating key aspects of Kafka's architecture.
 
+
+
+```mermaid
+graph TD;
+    subgraph Leader
+        A(Leader Election) --> B(Heartbeats)
+    end
+    subgraph Candidate
+        D(Start Election) --> E(Receive Votes)
+    end
+    subgraph Follower
+        G(Receive Heartbeats) --> H(Respond to Leader)
+    end
+    B --> C(Commit Log)
+    E --> C
+    H --> C
+    C -->|Apply| I(Change State)
+    I -->|Broadcast| A
+```
 This project implements a distributed node management system using Python and FastAPI. It focuses on maintaining a network of nodes, where each node can either be a leader or a follower. The system handles tasks like heartbeat management, metadata handling, and dynamic leader election.
 
 ## Features
